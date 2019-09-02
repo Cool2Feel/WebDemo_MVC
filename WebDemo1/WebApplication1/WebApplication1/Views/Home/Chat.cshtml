@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "KTC会议室";
+}
+
+<h2>Chat</h2>
+
+<div class="container">
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send" />
+    <input type="hidden" id="displayname" />
+    <ul id="discussion"></ul>
+</div>
+
+    @*
+    <script type="text/javascript">
+
+            var Clients = [];
+            // 声明一个代理
+            var hubProxy = $.connection.chatHub;
+            $('#username').html();
+            $(function () {
+                // 注册提示信息方法,供服务端调用
+                hubProxy.client.showMessage = function (message) {
+                    alert(message);
+                },
+
+                // 注册获取在线用户列表的方法
+                hubProxy.client.getOnlineUserlist = function (data) {
+                    if (data) {
+                        var jsondata = $.parseJSON(data);
+                        $("#userlist").html(" ");
+                        for (var i = 0; i < jsondata.length; i++) {
+                            var html = ' <li>用户名:' + jsondata[i].Name + '<button roomname="' + jsondata[i].ContextId + '" onclick="openChatDialog(this)">与他聊天</button></li><br>';
+                            $("#userlist").append(html);
+                        }
+                    }
+                },
+
+                //注册显示个人信息的方法
+                hubProxy.client.showNameAndId = function (name, id) {
+                    $('#username').html(name);
+                    $("#conId").html(id);
+                },
+
+                // 创建一个方法供服务端调用
+                hubProxy.client.addMessage = function (msg, contextId) {
+                    if ($.inArray(contextId, Clients) == -1) {
+                        addRoom(contextId);
+                    }
+
+                    $("#" + contextId).find("ul").each(function () {
+                        $(this).append('<li>' + msg + '</li>');
+                    });
+                },
+
+                // 启动 connection
+                $.connection.hub.start().done(function () {
+                    hubProxy.server.getName();
+                });
+            });
+
+            // 开始聊天
+            function openChatDialog(data) {
+                var val = $(data).attr('roomname');
+                if ($.inArray(val, Clients) !== -1) {
+                    return;
+                }
+
+                addRoom(val);
+            };
+
+            // 显示聊天窗口
+            function addRoom(val) {
+                Clients.push(val);
+                var html = '<div style="float:left; height:400px; width:360px; margin-left:200px; border:double" id="' + val + '"><button onclick="ExitRoom(this)">退出</button>\
+                                    ' + val + '<br><br>'+'\
+                                                聊天记录如下:<br><ul>\
+                                                </ul>\
+                                    <textarea type="text" style="height:80px; width:95%;margin-top:190px;magin-left:10px"/> <button onclick="sendMessage(this)" style="float:right">发送</button>\
+                                    </div>';
+                $("#main").append(html);
+            }
+
+            // 发送消息
+            function sendMessage(data) {
+                var message = $(data).prev().val();
+                var room = $(data).parent();
+                var username = $("#username").html();
+                alert(username);
+                message = username + ":" + message;
+                var connectionId = $(room).attr("id");
+                hubProxy.server.sendMessage(connectionId, message);
+                // 清空输入框信息并获取焦点
+                $(data).prev().val('').focus();
+            }
+
+            function removeByValue(arr, val) {
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] === val) {
+                        arr.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            // 退出
+            function ExitRoom(data) {
+                var val = $(data).parent().attr("id");
+                removeByValue(Clients, val);
+                $("#main").empty();
+            }
+
+    </script>
+    *@

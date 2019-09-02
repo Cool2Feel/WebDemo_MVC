@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8">
+    <title>跳转提示</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-size: 12px;
+            font-family: "微软雅黑";
+            -webkit-text-size-adjust: none;
+        }
+
+        #container {
+            width: 100%;
+            min-width: 980px;
+        }
+
+        .layer_box {
+            width: 490px;
+            height: 160px;
+            position: fixed;
+            top: 200px;
+            left: 50%;
+            margin-left: -250px;
+            border: 1px solid #ccc;
+            -moz-box-shadow: 0 0px 4px #7e7e7e;
+            -webkit-box-shadow: 0 0px 4px #7e7e7e;
+            box-shadow: 0 0px 4px #7e7e7e;
+            behavior: url(js/PIE.htc);
+            float: left;
+        }
+
+        .layer {
+            width: 490px;
+            height: 160px;
+            float: left;
+            background: #fff;
+            *margin-left: 1px;
+            *margin-top: 1px;
+        }
+
+            .layer dl {
+                width: 430px;
+                height: 100px;
+                margin: 30px;
+            }
+
+            .layer dt {
+                width: 76px;
+                height: 83px;
+                float: left;
+            }
+
+            .layer dd {
+                width: 336px;
+                float: left;
+                margin-left: 18px;
+            }
+
+                .layer dd.tit {
+                    font-size: 18px;
+                    color: #000;
+                }
+
+                .layer dd.txt {
+                    color: #666;
+                    line-height: 28px;
+                }
+
+                    .layer dd.txt a.jump_to {
+                        width: 55px;
+                        height: 25px;
+                        line-height: 25px;
+                        display: inline-block;
+                        background: url(#) left top no-repeat;
+                        padding-left: 25px;
+                        color: #666;
+                    }
+
+                    .layer dd.txt a.home {
+                        width: 58px;
+                        height: 26px;
+                        line-height: 26px;
+                        display: inline-block;
+                        background: url(#) left top no-repeat;
+                        padding-left: 27px;
+                        color: #fff;
+                    }
+
+                    .layer dd.txt a.member {
+                        width: 55px;
+                        height: 25px;
+                        line-height: 25px;
+                        display: inline-block;
+                        background: url(#) left top no-repeat;
+                        padding-left: 25px;
+                        color: #666;
+                        margin-left: 10px;
+                    }
+
+                    .layer dd.txt a:hover {
+                        text-decoration: underline;
+                    }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="layer_box">
+            <div class="layer">
+                <dl>
+                    <dt><img src="#"></dt>
+                    <dd class="tit">抱歉，没有权限</dd>
+                    <dd class="txt">系统将自动跳转。等待时间： <b id="wait">5</b><br /><a id="href" href="javascript:history.back(-1);" class="jump_to">点击跳转</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>

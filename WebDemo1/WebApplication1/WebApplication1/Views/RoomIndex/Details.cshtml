@@ -1,0 +1,82 @@
+﻿@model WebApplication1.Models.RoomModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RoomModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peopel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peopel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coustomer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coustomer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tips)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tips)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Page)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Page)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编 辑", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("返 回", "Index")
+</p>

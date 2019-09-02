@@ -1,0 +1,79 @@
+﻿@model WebApplication1.Models.RoomModels
+
+@{
+    ViewBag.Title = "清除";
+}
+
+<div class="meet_content" style="height:600px;">
+    <h3>Are you sure you want to delete this record?</h3>
+    <h4>清除会议室</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("会议室名称:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("预约人:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("参会人数:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peopel)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("参会客户:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coustomer)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("开始时间:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("接收时间:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("备注:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tips)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color meet_btn">
+            <input type="submit" value="确认" class="btn btn-default" /> |
+            @Html.ActionLink(" 返 回", "Index", "", new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

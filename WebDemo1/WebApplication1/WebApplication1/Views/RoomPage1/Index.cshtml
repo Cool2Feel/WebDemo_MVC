@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WebApplication1.Models.RoomModels>
+
+@{
+    ViewBag.Title = "KTC会议室";
+}
+<div id="meet_container">
+    <div class="meet_header clearfix">
+        <div class="meet_head_l"><i></i><p>会客室管理系统</p></div>
+        <ul class="meet_head_r">
+            <li><a href=@Url.Action("Index", "RoomIndex")><i class="meet_h0"></i><p>内部会议室</p> </a></li>
+            <li class="selected"><a href=@Url.Action("Index", "RoomPage1")><i class="meet_h1"></i><p>坂田会议室</p></a></li>
+            <li><a href=@Url.Action("Index", "RoomPage2")><i class="meet_h2"></i><p>惠南会议室</p></a></li>
+            <li><a href=@Url.Action("Index", "RoomPage")> <i class="meet_h3"></i><p>历史记录</p></a></li>
+        </ul>
+    </div>
+    <br />
+
+    <div class="meet_content">
+        <h3>前台左侧会议室</h3>
+        <div class="meet_recep meet_recep_l">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "0")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+        <div class="meet_recep meet_recep_r">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "1")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+        <h3>前台右侧会议室</h3>
+        <div class="meet_recep meet_recep_l">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "2")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+    $(function () {
+    var str = window.location.href;
+    str = str.substring(str.lastIndexOf("/") + 1);
+    if ($.cookie(str)) {
+        $("html,body").animate({ scrollTop: $.cookie(str) }, 1000);
+    } else {
+    }
+    })
+
+    $(window).scroll(function () {
+        var str = window.location.href;
+        str = str.substring(str.lastIndexOf("/") + 1);
+        var top = $(document).scrollTop();
+        $.cookie(str, top, { path: '/' });
+        return $.cookie(str);
+
+    })
+
+    </script>
+    }

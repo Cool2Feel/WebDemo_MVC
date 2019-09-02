@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WebApplication1.Models.HistoryModels>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "KTC会议室";
+}
+<div id="meet_container">
+    <div class="meet_header clearfix">
+        <div class="meet_head_l"><i></i><p>会客室管理系统</p></div>
+        <ul class="meet_head_r">
+            <li><a href = @Url.Action("Index", "RoomIndex")><i class="meet_h0"></i><p>内部会议室</p> </a></li>
+            <li><a href=@Url.Action("Index", "RoomPage1")><i class="meet_h1"></i><p>坂田会议室</p></a></li>
+            <li><a href=@Url.Action("Index", "RoomPage2")><i class="meet_h2"></i><p>惠南会议室</p></a></li>
+            <li class = "selected"><a href=@Url.Action("Index", "RoomPage")> <i class="meet_h3"></i><p>历史记录</p></a></li>
+        </ul>
+    </div>
+    <br />
+    <div class="meem_prosearch" style="font-size:14px;border: 5px solid #FFF;" >
+        @using (Html.BeginForm("Index", "RoomPage", FormMethod.Post, new { id = "searchForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                会议室: @Html.DropDownList("Name", ViewBag.MajorList as IEnumerable<SelectListItem>, "全部")
+                客 户: @Html.TextBox("Customer")
+                <input type="hidden" id="PageIndex" name="PageIndex" value="1" />
+                <input type="submit" value="检索" />
+            </p>
+        }
+    </div>
+    <br />
+    <table class="meem_prosearch table ">
+        <tr class="tbody">
+            <th>
+                @Html.DisplayName("会议室")
+            </th>
+            <th>
+                @Html.DisplayName("预约人:")
+            </th>
+            <th>
+                @Html.DisplayName("参会人数")
+            </th>
+            <th>
+                @Html.DisplayName("参会客户")
+            </th>
+            <th>
+                @Html.DisplayName("开始时间")
+            </th>
+            <th>
+                @Html.DisplayName("结束时间")
+            </th>
+            <th>
+                @Html.DisplayName("备注")
+            </th>
+            <th>  
+                设置              
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="tbody">
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peopel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coustomer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tips)
+                </td>
+                <td>
+                    @Html.ActionLink("查看", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+    @*
+    <div id="pagebar" style="font-size:14px">
+        @for (var i = 0; i < ViewBag.PageCount; i++)
+        {
+            if (i == ViewBag.PageIndex)
+            {
+                <span class="currentpagenumber">@(i + 1)</span>
+            }
+            else
+            {
+                <a class="pagenumber" href="javascript:;">@(i + 1)</a>
+            }
+        }
+    </div>
+    *@
+    <div>
+        @if (Model != null)
+        {
+            var data = Model as PagedList<WebApplication1.Models.HistoryModels>;//下面的Html.PagedListPager 函数需要接受一个型为PagedList<T>的对象
+            <span style="height: 20px; line-height: 20px;">共 @data.Count.ToString() 条记录 </span>
+            @Html.PagedListPager(list: data, generatePageUrl: Page => Url.Action("Index", new { p = Page }))
+         }
+        <br />
+    </div>
+    <br />
+</div>
+

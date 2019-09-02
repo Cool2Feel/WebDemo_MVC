@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<input type="button" id="btn" value="请求" />
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $('#btn').on("click", function() {
+                $.post('@Url.Action("GetSth")',function(data) {
+                    if (data.msg) {
+                        alert("请求成功一次");
+                    } else {
+                        alert("请求次数过多");
+                    }
+                });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,285 @@
+﻿@model IEnumerable<WebApplication1.Models.RoomModels>
+
+@{
+    ViewBag.Title = "KTC会议室";
+}
+<div id="meet_container">
+    <div class="meet_header clearfix">
+        <div class="meet_head_l"><i></i><p>会客室管理系统</p></div>
+        <ul class="meet_head_r">
+            <li class="selected"><a href=@Url.Action("Index", "RoomIndex")><i class="meet_h0"></i><p>内部会议室</p> </a></li>
+            <li><a href=@Url.Action("Index", "RoomPage1")><i class="meet_h1"></i><p>坂田会议室</p></a></li>
+            <li><a href=@Url.Action("Index", "RoomPage2")><i class="meet_h2"></i><p>惠南会议室</p></a></li>
+            <li><a href=@Url.Action("Index", "RoomPage")> <i class="meet_h3"></i><p>历史记录</p></a></li>
+        </ul>
+    </div>
+    <br />
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @*
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Peopel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coustomer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tips)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Peopel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coustomer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tips)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div id="pagebar">
+            @for (var i = 0; i < ViewBag.PageCount; i++)
+            {
+                if (i == ViewBag.PageIndex)
+                {
+                    <span class="currentpagenumber">@(i + 1)</span>
+                }
+                else
+                {
+                    <a class="pagenumber" href="javascript:;">@(i + 1)</a>
+                }
+            }
+        </div>
+    *@
+    <div class="meet_content">
+        <h3>坂田一楼会议室</h3>
+        <div class="meet_recep meet_recep_m">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "0")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+        <h3>坂田二楼会议室</h3>
+        <div class="meet_recep meet_recep_l">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "1")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+        <h3>惠南内部会议室</h3>
+        <div class="meet_recep meet_recep_r">
+            <ul>
+                @foreach (var it in Model)
+                {
+                    //@Html.Partial("Roomshow", it)
+                    if (it.Postion == "2")
+                    {
+                        @Html.Action("DisplayRoom", it)
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script type="text/javascript">
+    $(function () {
+    var str = window.location.href;
+    str = str.substring(str.lastIndexOf("/") + 1);
+    if ($.cookie(str)) {
+        $("html,body").animate({ scrollTop: $.cookie(str) }, 1000);
+    } else {
+    }
+    })
+
+    $(window).scroll(function () {
+        var str = window.location.href;
+        str = str.substring(str.lastIndexOf("/") + 1);
+        var top = $(document).scrollTop();
+        $.cookie(str, top, { path: '/' });
+        return $.cookie(str);
+
+    })
+
+</script>
+}
+
+@*
+            <div class="theme-popover theme-person">
+                <h3>安排客人</h3>
+                <form class="customerForm" id="customerForm" name="" action="" method="post">
+                    <input type="hidden" value="0" id="room_id" name="room_id">
+                    <dl><dt>客户姓名：</dt><dd><input id="cusname" class="input" name="cusname" value="" type="text"></dd></dl>
+                    <dl><dt>客户来意：</dt><dd><input id="cussoure" class="input" name="cussoure" value="" type="text"></dd></dl>
+                    <dl><dt>来访时间：</dt><dd><span><input class="input" value="" type="text" readonly="readonly" name="time" id="time" onclick="SelectDate(this,'yyyy-MM-dd hh:mm',null,null,'fixed')"></span></dd></dl>
+                    <div class="meet_btn"><input type="submit" class="submit" value="提交" /><input type="button" class="quxiao" value="取消" /></div>
+                </form>
+            </div>
+
+        <div class="theme-popover theme-empty">
+            <h3>清空房间</h3>
+            <p>是否确定清空房间？</p>
+            <form class="customerForm" id="customerForm" name="" action="" method="post">
+                <input type="hidden" name="room_id" value="" class="room_id">
+                <div class="meet_btn"><input type="submit" class="submit" value="确定" /><input type="button" class="quxiao" value="取消" /></div>
+            </form>
+        </div>
+        @section scripts {
+            <script>
+            function submitForm(pagenumber) {
+                pagenumber = parseInt(pagenumber, 10);
+                $('#PageIndex').val(pagenumber - 1);
+                $('#searchForm').submit();
+            }
+
+            $(function () {
+                $('#searchButton').click(function () {
+                    submitForm($('#pagebar .currentpagenumber').text());
+                });
+
+                $('#pagebar .pagenumber').click(function () {
+                    submitForm($(this).text());
+                });
+
+            });
+
+            jQuery(document).ready(function ($) {
+                var cid = 0;
+                var aid = 0;
+                $('body').on('click', '.meet_kr', function () {
+                    /*
+                    if("" != 1){
+                        alert('抱歉，您没有该权限。');
+                        return false;
+                    }*/
+                    var room_id = $(this).parent().attr('alt');
+                    aid = room_id;
+                    $('.theme-person #room_id').val(room_id);
+                    $('.theme-person #cusname').val('');
+                    $('.theme-person #cussoure').val('');
+                    $('.theme-person #time').val('');
+                    $('.theme-popover-mask').fadeIn(100);
+                    $('.theme-person').slideDown(200);
+                })
+
+                $('.theme-person .quxiao').click(function () {
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-person').slideUp(200);
+                })
+                $('body').on('click', '.meet_empty', function () {
+                    /*
+                    if("" != 1){
+                        alert('抱歉，您没有该权限。');
+                        return false;
+                    }*/
+                    var room_id = $(this).parent().attr('alt');
+                    cid = room_id;
+                    $('.theme-empty .room_id').val(room_id);
+                    $('.theme-popover-mask').fadeIn(100);
+                    $('.theme-empty').slideDown(200);
+                })
+                $('.theme-empty .quxiao').click(function () {
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-empty').slideUp(200);
+                })
+                $(".customerForm").submit(function () {
+                    $.ajax({
+                        'url': "/Home/ChangeRoom",
+                        'data':$(this).serialize(),
+                        'type': 'post',
+                        'dataType': "json",
+                        'success': function (data) {
+                            if (data.status == 'success') {
+                                $('.theme-popover-mask').click();
+                                if (data.data == 'clear') {//清空房间
+                                    var h4 = $('#room_' + cid + ' h4').html();
+                                    $('#room_' + cid).html('<h4>' + h4 + '</h4><strong>空闲中</strong><div class="meet_kr">安排客人</div>');
+                                    ws.send("clearroom:"+cid + ";" +'<h4>' + h4 + '</h4><strong>空闲中</strong><div class="meet_kr">安排客人</div>');
+                                } else {
+                                    //安排房间
+                                    var h4 = $('#room_' + aid + ' h4').html();
+                                    var html = '<i></i><h4>' + h4 + '</h4>';
+                                    html += '<div class="meet_personmsg">'
+                                    html += '<dl><dt>客户名称：</dt><dd>' + $('#cusname').val() + '</dd></dl>'
+                                    html += '<dl><dt>客户来意：</dt><dd>' + $('#cussoure').val() + '</dd></dl>'
+                                    html += '<dl><dt>会客人数：</dt><dd>' + $('#cusnumber').val() + '</dd></dl>'
+                                    html += '<dl><dt>来访时间：</dt><dd>' + $('#time').val().slice(0, 11) + '<br>' + $('#time').val().slice(11) + ':00</dd></dl></div>'
+                                    html += '<div class="meet_empty">清空房间</div>'
+                                    $('#room_' + aid).html(html);
+                                    ws.send("addroom:" + aid +";"+ html);
+                                }
+
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
+
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-popover').slideUp(200);
+                    return false;
+                })
+            })
+            </script>
+
+
+    <fieldset>
+        <input type="button" value="Connect" id="btnConnect" />
+        <input type="button" value="DisConnect" id="btnDisConnect" />
+        <hr />
+        <input type="text" id="txtInput" />
+        <input type="button" value="Send" id="btnSend" />
+        <br />
+        <span id="messageSpan" style="color:red;"></span>
+    </fieldset>
+*@

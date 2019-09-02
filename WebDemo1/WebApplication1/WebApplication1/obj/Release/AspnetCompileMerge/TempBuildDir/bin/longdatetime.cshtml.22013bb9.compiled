@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Shared/DisplayTemplates/LongDateTime.cshtml" hash="6d4755ff" filehash="287e94075729" flags="110000" assembly="App_Web_nzhv1lcc" type="ASP._Page_Views_Shared_DisplayTemplates_LongDateTime_cshtml">
+    <filedeps>
+        <filedep name="/Views/Shared/DisplayTemplates/LongDateTime.cshtml" />
+    </filedeps>
+</preserve>

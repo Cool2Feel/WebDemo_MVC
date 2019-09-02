@@ -1,0 +1,8 @@
+﻿@model  WebApplication1.Models.RoomModels
+
+<li id="room_@Model.ID" alt="@Model.ID">
+    <h4>@Model.Name</h4>
+    <span>(@Model.Number)</span>
+    <strong>空闲中</strong>
+    <div class="meet_kr">@Html.ActionLink("安排房间", "Edit", new { id = @Model.ID })</div>
+</li>	

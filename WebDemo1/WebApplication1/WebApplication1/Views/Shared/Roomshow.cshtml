@@ -1,0 +1,18 @@
+﻿@model  WebApplication1.Models.RoomModels
+
+<li id="room_@Model.ID" alt="@Model.ID">
+    <i></i>
+    <h4>@Model.Name</h4>
+    <div class="meet_personmsg">
+        <dl><dt>参会客户：</dt><dd>@Model.Coustomer</dd></dl>
+        <dl><dt>参会人数：</dt><dd>@Model.Peopel</dd></dl>
+        <dl><dt>预  约  人：</dt><dd>@Model.Person</dd></dl>
+        <dl><dt>开始时间：</dt><dd>@Model.StartTime</dd></dl>
+        <dl><dt>结束时间：</dt><dd>@Model.EndTime</dd></dl>
+        <dl><dt>备    注：</dt><dd>@Model.Tips</dd></dl>
+    </div>
+    <div class="meet_empty">
+    @Html.ActionLink("修改", "Edit", new { id = @Model.ID }) | 
+    @Html.ActionLink("清空房间", "Delete", new { id = @Model.ID })
+    </div>
+</li>
